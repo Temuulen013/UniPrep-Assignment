@@ -17,7 +17,7 @@ namespace UniPreperation
 
             using (SqlConnection con = new SqlConnection(connStr))
             {
-                // We need to fetch the ID and Role so we can save them in the Session
+                
                 string query = "SELECT user_id, username, role FROM users WHERE email=@email AND password=@pass";
 
                 SqlCommand cmd = new SqlCommand(query, con);
@@ -29,15 +29,15 @@ namespace UniPreperation
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    if (reader.Read()) // If a row was found
+                    if (reader.Read()) 
                     {
-                        // 1. Create the Session Variables
-                        // This "logs them in" and remembers who they are
+                        
+                        
                         Session["user_id"] = reader["user_id"].ToString();
                         Session["username"] = reader["username"].ToString();
-                        Session["role"] = reader["role"].ToString(); // Important for Admin check later!
+                        Session["role"] = reader["role"].ToString(); 
 
-                        // 2. Redirect to Homepage
+                        
                         Response.Redirect("Default.aspx");
                     }
                     else

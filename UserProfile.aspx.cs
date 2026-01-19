@@ -22,12 +22,12 @@ namespace UniPreperation
             }
         }
 
-        // --- READ OPERATION ---
+        
         private void LoadProfile()
         {
             using (SqlConnection con = new SqlConnection(connStr))
             {
-                // Fetch current user details
+                
                 string query = "SELECT username, email FROM users WHERE user_id = @id";
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@id", Session["user_id"]);
@@ -42,14 +42,14 @@ namespace UniPreperation
             }
         }
 
-        // --- UPDATE OPERATION ---
+        
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
             using (SqlConnection con = new SqlConnection(connStr))
             {
                 string query = "UPDATE users SET email = @email";
 
-                // Only update password if the user typed something new
+                
                 if (!string.IsNullOrEmpty(txtPassword.Text))
                 {
                     query += ", password = @pass";
@@ -74,12 +74,12 @@ namespace UniPreperation
             }
         }
 
-        // --- DELETE OPERATION ---
+       
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             using (SqlConnection con = new SqlConnection(connStr))
             {
-                // First: Delete user's uploads to avoid database errors (Foreign Key constraints)
+                
                 string deleteResources = "DELETE FROM resources WHERE uploaded_by = @id";
                 SqlCommand cmdRes = new SqlCommand(deleteResources, con);
                 cmdRes.Parameters.AddWithValue("@id", Session["user_id"]);
@@ -87,14 +87,14 @@ namespace UniPreperation
                 con.Open();
                 cmdRes.ExecuteNonQuery();
 
-                // Second: Delete the user account
+                
                 string deleteUser = "DELETE FROM users WHERE user_id = @id";
                 SqlCommand cmdUser = new SqlCommand(deleteUser, con);
                 cmdUser.Parameters.AddWithValue("@id", Session["user_id"]);
                 cmdUser.ExecuteNonQuery();
             }
 
-            // Log them out and send to home
+            
             Session.Abandon();
             Response.Redirect("Default.aspx");
         }

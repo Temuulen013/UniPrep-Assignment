@@ -1,6 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="UniPreperation.About" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <style>
+    .about-text {
+        color: #555;
+        line-height: 1.6;
+    }
+</style>
+
+<div class="about-text">
+    <h2>About UniPrep</h2>
+    ...
+</div>
     <div style="padding: 20px;">
         <h2>About UniPrep</h2>
         <p style="font-size: 18px; color: #555;">

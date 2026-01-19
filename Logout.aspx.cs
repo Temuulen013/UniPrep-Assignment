@@ -8,13 +8,13 @@ namespace UniPreperation
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // 1. Destroy the Session (The digital ID card)
+            
             Session.Abandon();
 
-            // 2. Clear any authentication cookies (Good practice)
+            
             Session.Clear();
 
-            // 3. Redirect back to Login
+            
             Response.Redirect("Login.aspx");
         }
     }

@@ -11,10 +11,10 @@ namespace UniPreperation
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // 1. SECURITY: Only allow Admins!
+            
             if (Session["role"] == null || Session["role"].ToString() != "admin")
             {
-                // Kick them out if they are not an admin
+               
                 Response.Redirect("Login.aspx");
             }
 
@@ -29,7 +29,7 @@ namespace UniPreperation
             string connStr = ConfigurationManager.ConnectionStrings["UniPrepDB"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connStr))
             {
-                // Show ALL resources (both pending and approved) so Admin can manage them
+               
                 string query = @"SELECT r.resource_id, r.title, r.status, u.username 
                                  FROM resources r 
                                  JOIN users u ON r.uploaded_by = u.user_id";
@@ -54,7 +54,7 @@ namespace UniPreperation
 
                 if (e.CommandName == "ApproveResource")
                 {
-                    // === REQUIREMENT: UPDATE RECORD ===
+                  
                     string updateQuery = "UPDATE resources SET status='approved' WHERE resource_id=@id";
                     SqlCommand cmd = new SqlCommand(updateQuery, con);
                     cmd.Parameters.AddWithValue("@id", resourceId);
@@ -64,7 +64,7 @@ namespace UniPreperation
                 }
                 else if (e.CommandName == "DeleteResource")
                 {
-                    // === REQUIREMENT: DELETE RECORD ===
+                    
                     string deleteQuery = "DELETE FROM resources WHERE resource_id=@id";
                     SqlCommand cmd = new SqlCommand(deleteQuery, con);
                     cmd.Parameters.AddWithValue("@id", resourceId);
@@ -74,7 +74,7 @@ namespace UniPreperation
                 }
             }
 
-            // Refresh the list to show changes
+          
             LoadPendingResources();
         }
     }

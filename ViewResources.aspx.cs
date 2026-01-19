@@ -21,13 +21,13 @@ namespace UniPreperation
             string connStr = ConfigurationManager.ConnectionStrings["UniPrepDB"].ConnectionString;
             using (SqlConnection con = new SqlConnection(connStr))
             {
-                // Basic SQL query
-                // We JOIN 'users' table so we can show the username instead of just user_id
+                
+                
                 string query = @"SELECT r.resource_id, r.title, r.subject_code, r.type, r.file_link, r.status, u.username 
                                  FROM resources r 
                                  JOIN users u ON r.uploaded_by = u.user_id";
 
-                // If user typed in search box, add a WHERE clause
+                
                 if (!string.IsNullOrEmpty(searchTerm))
                 {
                     query += " WHERE r.title LIKE @search OR r.subject_code LIKE @search";
@@ -45,7 +45,7 @@ namespace UniPreperation
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 
-                // Bind the data to the GridView
+                
                 gvResources.DataSource = dt;
                 gvResources.DataBind();
             }
